@@ -8,6 +8,7 @@
       
   //FUNCTIONS
 void DisplayGrid(char Grid[ROWS][COLS]);
+void UpDateGrid(char Grid[ROWS][COLS], int i, int j);
 void DisplayRules();
 void RNDNumGen();
 void PlayGame();
@@ -22,7 +23,7 @@ int main()
 
  void DisplayGrid(char Grid[ROWS][COLS])
 { 
-  srand(time(0));
+  srand(time(NULL));
   int RNDNum1;
   int RNDNum2;//(rand()%8)       
 
@@ -37,7 +38,7 @@ int main()
   for(int i=0; i<10; i++)
     {RNDNum1=(rand()%8);
       RNDNum2=(rand()%8);
-printf("DEBUG--1 Row: %d,, Cols: %d\n", RNDNum1, RNDNum2);
+//printf("DEBUG--1 Row: %d,, Cols: %d\n", RNDNum1, RNDNum2);
 
       for(int j=0; j<ROWS; j++)
         {
@@ -46,6 +47,7 @@ printf("DEBUG--1 Row: %d,, Cols: %d\n", RNDNum1, RNDNum2);
                 Grid[RNDNum1][RNDNum2]='X';
             }
         }
+
     }//END OF MINES IN GRID
 
   for(int i=0; i<ROWS; i++)
@@ -56,8 +58,20 @@ printf("DEBUG--1 Row: %d,, Cols: %d\n", RNDNum1, RNDNum2);
       }
         printf("\n");
     }//END OF PRINTING OF GRID
+ 
   
  }//END OF DisplayGrid 
+
+void UpDateGrid(char Grid[ROWS][COLS], int i, int j)
+{
+  //take input and claer sapce
+  //check user move 
+  //if its bomb end game
+  //else allow move and claer sapce
+  //printf("TESTING -- Move1: %d,  Move2: %d\n",i, j);
+  Grid[i][j]=' ';
+  
+}//END OF UpDateGrid
 
 void DisplayRules()
 {
@@ -74,7 +88,7 @@ void PlayGame()
   char enter='n';
   int move1;
   int move2;
-    
+  int gameState=0; 
     //START GAME
   printf("Welcome to MineSweeper, Here are the rules\n");
   
@@ -83,16 +97,21 @@ void PlayGame()
       scanf(" %c", &enter);
     while(enter !='n')
     {       
+
+      
+      
         //CALLING GRID
       DisplayGrid(Grid);
     
         //User makes move
       printf("Which square would you like to revel\n");
         scanf("%d %d", &move1, &move2);
-       
+      
+      UpDateGrid(Grid, move1, move2);
         //Get out of game
       printf("Continue with game Yes('y')/No('n')\n");
         scanf(" %c", &enter);
+      
           }//END OF WHILE
 }//END OF PlayGame
 
