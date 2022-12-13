@@ -7,25 +7,57 @@
 #define COLS 8
       
   //FUNCTIONS
-void DisplayGrid(char Grid[ROWS][COLS])
-{
-  for (int i = 0; i < ROWS; i++) 
-      { 
-        for(int j = 0; j < COLS; j++)
-          {
-              Grid[i][j]='O';
-           }
-      }//END OF POPULATION OF GRID
+void DisplayGrid(char Grid[ROWS][COLS]);
+void DisplayRules();
+void RNDNumGen();
+void PlayGame();
 
-   for (int i = 0; i < ROWS; i++) 
-      { 
-        for(int j = 0; j < COLS; j++)
-          {
-            printf(" %c ", Grid[i][j]);
-          }
+  //MAIN 
+int main()
+{ 
+  DisplayRules();
+  PlayGame();
+ return 0;
+}//END OF MAIN 
+
+ void DisplayGrid(char Grid[ROWS][COLS])
+{ 
+  srand(time(0));
+  int RNDNum1;
+  int RNDNum2;//(rand()%8)       
+
+  for(int i=0; i<ROWS; i++)
+    {
+      for(int j=0; j<COLS; j++)
+        {
+          Grid[i][j]='O';
+        }
+    }//END OF POPULATING GRID
+  
+  for(int i=0; i<10; i++)
+    {RNDNum1=(rand()%8);
+      RNDNum2=(rand()%8);
+printf("DEBUG--1 Row: %d,, Cols: %d\n", RNDNum1, RNDNum2);
+
+      for(int j=0; j<ROWS; j++)
+        {
+          for(int p=0; p<COLS; p++)
+            {
+                Grid[RNDNum1][RNDNum2]='X';
+            }
+        }
+    }//END OF MINES IN GRID
+
+  for(int i=0; i<ROWS; i++)
+    {
+      for(int j = 0; j < COLS; j++)
+      {
+        printf(" %c ", Grid[i][j]);   
+      }
         printf("\n");
-      }//END OF PRINTING OF GRID
- }//END OF DisplayGrid
+    }//END OF PRINTING OF GRID
+  
+ }//END OF DisplayGrid 
 
 void DisplayRules()
 {
@@ -35,19 +67,8 @@ void DisplayRules()
   printf("3: Once you claer one tile, you will be showen some numbers, these numbers,\nshow how many bombs are in a 8 square radius\n");
 }//END OF DisplayRules
 
-void RNDNumGen()
-{//Understanding of random gotten from https://www.youtube.com/watch?v=CJ37J_Cdd8Q
-  srand(time(0));
-  int RNDNum1 = (rand()%8);//FOR ROW
-  int RNDNum2 = (rand()%8);//FOR COL
-  //printf("DEBUG-- RND1: %d\n", RNDNum1);
-  //printf("DEBUG-- RND2: %d\n", RNDNum2);
-    
-}//END OF RNDNumGen 
-
 void PlayGame()
 {   //testing 
-  //RNDNumGen();
    char Grid[ROWS][COLS];//DECLEARING THE ARRAY
     //VARIABLES
   char enter='n';
@@ -74,16 +95,5 @@ void PlayGame()
         scanf(" %c", &enter);
           }//END OF WHILE
 }//END OF PlayGame
-
-  //MAIN 
-int main()
-{ 
-  DisplayRules();
-  PlayGame();
- return 0;
-}//END OF MAIN 
-
-  
-
 
 
