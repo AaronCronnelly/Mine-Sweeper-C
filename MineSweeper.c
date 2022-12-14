@@ -62,15 +62,26 @@ int main()
   
  }//END OF DisplayGrid 
 
-void UpDateGrid(char Grid[ROWS][COLS], int i, int j)
+void UpDateGrid(char Grid[ROWS][COLS], int move1, int move2)
 {
-  //take input and claer sapce
-  //check user move 
-  //if its bomb end game
-  //else allow move and claer sapce
-  //printf("TESTING -- Move1: %d,  Move2: %d\n",i, j);
-  Grid[i][j]=' ';
-  
+ 
+  for(int i=0; i<ROWS; i++)
+    {
+      for(int j=0; j<COLS; j++)
+        {
+          Grid[i][j]='O';
+          Grid[move1][move2]=' ';
+        }
+    }
+ for(int i=0; i<ROWS; i++)
+    {
+      for(int j=0; j<COLS; j++)
+        {
+         printf(" %c ",Grid[i][j]);
+         printf(" %c ",Grid[move1][move2]);
+        }
+      printf("\n");
+    }
 }//END OF UpDateGrid
 
 void DisplayRules()
