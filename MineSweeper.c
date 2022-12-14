@@ -83,7 +83,7 @@ void UpDateGrid(char Grid[ROWS][COLS], int move1, int move2)
           Grid[move1][move2]=' ';
         }
     }
- for(int i=0; i<ROWS; i++)
+ for(int i=1; i<ROWS; i++)
     {
       for(int j=0; j<COLS; j++)
         {
