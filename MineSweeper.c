@@ -77,7 +77,7 @@ void UpDateGrid(char Grid[ROWS][COLS], int move1, int move2)
     {
       for(int j=0; j<COLS; j++)
         {
-         printf(" %c ",Grid[i][j]);
+          printf(" %c ", Grid[i][j]);
          printf(" %c ",Grid[move1][move2]);
         }
       printf("\n");
@@ -109,11 +109,12 @@ void PlayGame()
     while(enter !='n')
     {       
 
-      
-      
-        //CALLING GRID
-      DisplayGrid(Grid);
-    
+      //runnign the first iteration of the grid
+      while(gameState==0)
+        {
+           DisplayGrid(Grid);
+          gameState=gameState+1;
+        }
         //User makes move
       printf("Which square would you like to revel\n");
         scanf("%d %d", &move1, &move2);
