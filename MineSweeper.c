@@ -64,7 +64,17 @@ int main()
 
 void UpDateGrid(char Grid[ROWS][COLS], int move1, int move2)
 {
- 
+  //need to print the grid out once, and save the array 
+  for(int i=0; i<ROWS; i++)
+    {
+      for(int j=0; j<COLS; j++)
+        {
+          Grid[i][j]='O';
+        }
+    }//THIS IS POPULATING THE GIRD
+  //thne need to print out the grid each time while removeing one varibale at a time 
+  //need to give use points for each time they remove claer on square
+
   for(int i=0; i<ROWS; i++)
     {
       for(int j=0; j<COLS; j++)
