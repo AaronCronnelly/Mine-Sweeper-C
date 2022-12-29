@@ -7,6 +7,9 @@
 //FUNCTIONS 
   void MakeGrid(char Grid[ROWS][COLS]);
   void LoadGame();  
+  void updateGrid(char Grid[ROWS][COLS], int x, int y);
+  void DisplayOnce(char Grid[ROWS][COLS]);
+
 
 int main()
 {
@@ -14,9 +17,36 @@ int main()
 }//END OF MAIN 
 
 void LoadGame()
-{
+{//need to make it so make grid is only called once
+  //then it is passed to an update grid funciton 
+  //the update gride funtion is run each time the user entes a value to claer 
+
+    //VARAIBALES
+  char startGame;
   char Grid[ROWS][COLS];
-  MakeGrid(Grid);
+  
+    //callling the grid funciton to make the grid 
+    MakeGrid(Grid);
+ 
+
+  printf("Would you like to start the game 'Y'/'N'\n");
+    scanf("%c", &startGame);
+    DisplayOnce(Grid);
+
+  while(startGame=='y'||startGame=='Y')
+    {
+      int x, y;
+    printf("Please enter the tile you would like to check: x y\n");
+      scanf("%d %d", &x, &y);
+
+      updateGrid(Grid, x, y);
+
+      printf("would you like to continut playing 'y'/'n'\n");
+        scanf(" %c", &startGame);
+    }//END OF WHILE FOR GAME
+
+  printf("DEBUG-- this is where the user score, and opthins to save will be\n");
+
 }//END OF LOAD GAME
 
 
@@ -51,6 +81,35 @@ void MakeGrid(char Grid[ROWS][COLS])
           Grid[8][0]='8';
         }
     }//MAKING GIRD
+  
+  //need to take user input
+  //reprint grid with user choice removed
+ /* for(int i=0; i<ROWS; i++)
+    {
+      for(int j=0; j<COLS; j++)
+        {
+          printf(" %c ", Grid[i][j]);
+        }
+      printf("\n");
+    }*///DISPLAYIG GIRD
+}//END OF MAKE GRID
+
+
+void updateGrid(char Grid[ROWS][COLS], int x, int y)
+{
+  for(int i=0; i<ROWS; i++)
+    {
+      for(int j=0; j<COLS; j++)
+        {
+          Grid[x][y]='u';
+          printf(" %c ", Grid[i][j]);
+        }
+      printf("\n");
+    }//DISPLAYIG GIRD
+}//END OF updateGrid
+
+void DisplayOnce(char Grid[ROWS][COLS])
+{
   for(int i=0; i<ROWS; i++)
     {
       for(int j=0; j<COLS; j++)
@@ -59,5 +118,11 @@ void MakeGrid(char Grid[ROWS][COLS])
         }
       printf("\n");
     }//DISPLAYIG GIRD
-}//END OF MAKE GRID
+}//END OF DisplayOnce
+
+
+
+
+
+
 
