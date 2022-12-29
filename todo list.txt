@@ -1,0 +1,12 @@
+Todo
+
+  29dec
+Get grid working 
+get user input working 
+get grid diaplay a value 
+get bombs workng 
+
+  30dec
+get point system working 
+get two player system working 
+get saving to a file working
