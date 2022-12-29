@@ -102,7 +102,10 @@ void PlayGame()
   printf("Enter game ('y')/('n')\n");
     scanf(" %c", &start);
   while(start != 'n')
-    {
+    {/*NEED TO MAKE THE GIRD RUN ONCE AND THEN SAVE IT LIKE SO, 
+    THEN NEED TO REPRINT THE GRID EACH GO, WITH THE NEW LOACTION GONE\,
+    NEED TO ADD IF MINE IS HIT THE plyaer loses the game
+    */
         //RUN FIRST ITERATION OF GIRD
       DisplayGrid(Grid);
 
