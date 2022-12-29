@@ -59,7 +59,7 @@ void MakeGrid(char Grid[ROWS][COLS])
         {int T=j+1;
           int F=i+1;
           //this is filling the main gird
-          Grid[i][j]='0';
+          Grid[i][j]=' ';
           //this is filling the top row of grid
           Grid[0][0]='0';
           Grid[0][1]='1';
@@ -82,16 +82,6 @@ void MakeGrid(char Grid[ROWS][COLS])
         }
     }//MAKING GIRD
   
-  //need to take user input
-  //reprint grid with user choice removed
- /* for(int i=0; i<ROWS; i++)
-    {
-      for(int j=0; j<COLS; j++)
-        {
-          printf(" %c ", Grid[i][j]);
-        }
-      printf("\n");
-    }*///DISPLAYIG GIRD
 }//END OF MAKE GRID
 
 
