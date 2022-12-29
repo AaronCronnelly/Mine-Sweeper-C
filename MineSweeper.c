@@ -24,6 +24,7 @@ void LoadGame()
   //the update gride funtion is run each time the user entes a value to claer 
 
     //VARAIBALES
+  int GameOver=0;
   char startGame;
   char Grid[ROWS][COLS];
   
@@ -42,10 +43,12 @@ void LoadGame()
       scanf("%d %d", &x, &y);
 
       updateGrid(Grid, x, y);
-
+        printf("DEBUG-- %d\n", GameOver);
+  
       printf("would you like to continut playing 'y'/'n'\n");
         scanf(" %c", &startGame);
-    }//END OF WHILE FOR GAME
+      
+     }//END OF WHILE FOR GAME
 
   printf("DEBUG-- this is where the user score, and opthins to save will be\n");
 
@@ -91,11 +94,7 @@ for(int i=0; i<10; i++)
       int x=rand()%8+1;
       int y=rand()%8+1;        
       Grid[x][y]='x';   
-    }
-  
-
-  
-
+    }//END OF SETING UP MINES
 }//END OF MAKE GRID
 
 
@@ -110,6 +109,8 @@ void updateGrid(char Grid[ROWS][COLS], int x, int y)
         }
       printf("\n");
     }//DISPLAYIG GIRD
+  
+
 }//END OF updateGrid
 
 void DisplayOnce(char Grid[ROWS][COLS])
@@ -122,6 +123,7 @@ void DisplayOnce(char Grid[ROWS][COLS])
         }
       printf("\n");
     }//DISPLAYIG GIRD
+  
 }//END OF DisplayOnce
 
 
