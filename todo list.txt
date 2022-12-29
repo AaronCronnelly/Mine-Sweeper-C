@@ -1,7 +1,7 @@
 Todo
 
   29dec
-Get grid working 
+[x]Get grid working  
 get user input working 
 get grid diaplay a value 
 get bombs workng 
