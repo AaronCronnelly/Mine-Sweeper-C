@@ -1,4 +1,6 @@
 #include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
 
 //CONSTATNS
   #define ROWS 9
@@ -81,7 +83,19 @@ void MakeGrid(char Grid[ROWS][COLS])
           Grid[8][0]='8';
         }
     }//MAKING GIRD
+
+  //SETTING UP BOMBS
+  srand(time(NULL));
+for(int i=0; i<10; i++)
+    {
+      int x=rand()%8+1;
+      int y=rand()%8+1;        
+      Grid[x][y]='x';   
+    }
   
+
+  
+
 }//END OF MAKE GRID
 
 
