@@ -11,9 +11,9 @@ int score=0;
   #define COLS 9
 
 //FUNCTIONS 
-  void MakeGrid(char Grid[ROWS][COLS]);
+  void MakeGrid(char Grid[ROWS][COLS], char BombGrid[ROWS][COLS]); 
   void LoadGame();  
-  void updateGrid(char Grid[ROWS][COLS], int x, int y);
+  void updateGrid(char Grid[ROWS][COLS], char BombGrid[ROWS][COLS], int x, int y);
   void DisplayOnce(char Grid[ROWS][COLS]);
 
 
@@ -30,9 +30,10 @@ void LoadGame()
     //VARAIBALES
   char startGame;
   char Grid[ROWS][COLS];
+  char BombGrid[ROWS][COLS];
   
     //callling the grid funciton to make the grid 
-    MakeGrid(Grid);
+    MakeGrid(Grid, BombGrid);
  
 
   printf("Would you like to start the game 'Y'/'N'\n");
@@ -46,7 +47,7 @@ void LoadGame()
     printf("Please enter the tile you would like to check: x y\n");
       scanf("%d %d", &x, &y);
 
-      updateGrid(Grid, x, y);
+      updateGrid(Grid, BombGrid, x, y);
       printf("Score %d\n", score);
       printf("DEBUG-- %d\n", GameOver);
       if(GameOver==1)
@@ -65,7 +66,7 @@ void LoadGame()
 
 
 
-void MakeGrid(char Grid[ROWS][COLS])
+void MakeGrid(char Grid[ROWS][COLS], char BombGrid[ROWS][COLS])
 { 
   for(int i=0; i<ROWS; i++)
     {
@@ -73,7 +74,7 @@ void MakeGrid(char Grid[ROWS][COLS])
         {int T=j+1;
           int F=i+1;
           //this is filling the main gird
-          Grid[i][j]=' ';
+          Grid[i][j]='?';
           //this is filling the top row of grid
           Grid[0][0]='0';
           Grid[0][1]='1';
@@ -98,18 +99,25 @@ void MakeGrid(char Grid[ROWS][COLS])
 
   //SETTING UP BOMBS
   srand(time(NULL));
-for(int i=0; i<10; i++)
+  for(int p=0; p<10; p++)
     {
-      int x=rand()%8+1;
-      int y=rand()%8+1;        
-      Grid[x][y]='x';    
-    }//END OF SETING UP MINES
+      while(1)
+      {
+        int x=rand()%8+1;
+        int y=rand()%8+1;
+        if(Grid[x][y]=='?')
+        {
+          BombGrid[x][y]='x';
+          break;
+        }
+      }
+    }//END OF BOMBS 
 }//END OF MAKE GRID
 
 
-void updateGrid(char Grid[ROWS][COLS], int x, int y)
+void updateGrid(char Grid[ROWS][COLS], char BombGrid[ROWS][COLS], int x, int y)
 {
-  if(Grid[x][y]=='x')
+  if(BombGrid[x][y]=='x')
   {
     GameOver++;
     Grid[x][y]='X';
