@@ -2,6 +2,10 @@
 #include<stdlib.h>
 #include<time.h>
 
+//GOLBAL VARAIBALES 
+int GameOver=0;
+int score=0;
+
 //CONSTATNS
   #define ROWS 9
   #define COLS 9
@@ -24,7 +28,6 @@ void LoadGame()
   //the update gride funtion is run each time the user entes a value to claer 
 
     //VARAIBALES
-  int GameOver=0;
   char startGame;
   char Grid[ROWS][COLS];
   
@@ -34,6 +37,7 @@ void LoadGame()
 
   printf("Would you like to start the game 'Y'/'N'\n");
     scanf("%c", &startGame);
+    printf("Score %d\n", score);
     DisplayOnce(Grid);
 
   while(startGame=='y'||startGame=='Y')
@@ -43,14 +47,19 @@ void LoadGame()
       scanf("%d %d", &x, &y);
 
       updateGrid(Grid, x, y);
-        printf("DEBUG-- %d\n", GameOver);
-  
+      printf("Score %d\n", score);
+      printf("DEBUG-- %d\n", GameOver);
+      if(GameOver==1)
+      {
+        printf("You have lost the game you score will now be displayed, \nscore: %d", score);
+        return;
+      }
+
       printf("would you like to continut playing 'y'/'n'\n");
         scanf(" %c", &startGame);
-      
      }//END OF WHILE FOR GAME
 
-  printf("DEBUG-- this is where the user score, and opthins to save will be\n");
+  printf("DEBUG-- this is where the user score, and opthins to save will be.. \nScore: %d", score);
 
 }//END OF LOAD GAME
 
@@ -93,13 +102,23 @@ for(int i=0; i<10; i++)
     {
       int x=rand()%8+1;
       int y=rand()%8+1;        
-      Grid[x][y]='x';   
+      Grid[x][y]='x';    
     }//END OF SETING UP MINES
 }//END OF MAKE GRID
 
 
 void updateGrid(char Grid[ROWS][COLS], int x, int y)
 {
+  if(Grid[x][y]=='x')
+  {
+    GameOver++;
+    Grid[x][y]='X';
+  }
+
+else
+  {
+    score=score+1;
+
   for(int i=0; i<ROWS; i++)
     {
       for(int j=0; j<COLS; j++)
@@ -109,7 +128,7 @@ void updateGrid(char Grid[ROWS][COLS], int x, int y)
         }
       printf("\n");
     }//DISPLAYIG GIRD
-  
+  }
 
 }//END OF updateGrid
 
