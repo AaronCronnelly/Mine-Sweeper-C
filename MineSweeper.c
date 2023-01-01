@@ -99,7 +99,7 @@ void MakeGrid(char Grid[ROWS][COLS], char BombGrid[ROWS][COLS])
 
   //SETTING UP BOMBS
   srand(time(NULL));
-  for(int p=0; p<10; p++)
+  for(int p=0; p<40; p++)
     {
       while(1)
       {
@@ -117,27 +117,78 @@ void MakeGrid(char Grid[ROWS][COLS], char BombGrid[ROWS][COLS])
 
 void updateGrid(char Grid[ROWS][COLS], char BombGrid[ROWS][COLS], int x, int y)
 {
+  int count=0;
+  char bomb='0';
+
   if(BombGrid[x][y]=='x')
   {
     GameOver++;
-    Grid[x][y]='X';
+    Grid[x][y]='x';
   }
 
 else
   {
     score=score+1;
+    for(int i=x-1; i<x+1; i++)
+      {
+        for(int j=y-1; j<y+1; j++)
+          {
+            if(BombGrid[i][j]=='x')
+            {
+              count++;
+            }
+          }
+      }//END OF FOR CHECK
 
-  for(int i=0; i<ROWS; i++)
-    {
-      for(int j=0; j<COLS; j++)
-        {
-          Grid[x][y]='u';
-          printf(" %c ", Grid[i][j]);
-        }
-      printf("\n");
-    }//DISPLAYIG GIRD
+    switch(count) 
+      {
+        case 1:
+        bomb='1';
+          break;
+
+        case 2:
+        bomb='2';
+          break;
+        
+        case 3:
+        bomb='3';
+          break;
+
+        case 4: 
+        bomb='4';
+          break;
+
+        case 5:
+        bomb='5';
+          break;
+
+        case 6:
+        bomb='6';
+          break;
+        
+        case 7:
+        bomb='7';
+          break;
+
+        case 8:
+        bomb='8';
+          break;
+
+        default:
+
+          break;
+    }//END OF SWITHC 
+    
+    for(int i=1; i<ROWS; i++)
+      {
+        for(int j=0; j<COLS; j++)
+          {
+            Grid[x][y]=bomb;
+            printf(" %c ", Grid[i][j]);
+          }
+        printf("\n");
+      } 
   }
-
 }//END OF updateGrid
 
 void DisplayOnce(char Grid[ROWS][COLS])
