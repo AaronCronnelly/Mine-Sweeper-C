@@ -15,7 +15,7 @@ int score=0;
   void LoadGame();  
   void updateGrid(char Grid[ROWS][COLS], char BombGrid[ROWS][COLS], int x, int y);
   void DisplayOnce(char Grid[ROWS][COLS]);
-
+  void SaveGame(Char Grid[ROWS][COLS], char BombGrid[ROWS][COLS], int Score);
 
 int main()
 {
@@ -205,7 +205,10 @@ void DisplayOnce(char Grid[ROWS][COLS])
 }//END OF DisplayOnce
 
 
-
+void SaveGame(char Grid[ROWS][COLS], char BombGrid[ROWS][COLS], int score)
+{
+  
+}
 
 
 
