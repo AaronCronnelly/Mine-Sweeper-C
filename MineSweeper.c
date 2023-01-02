@@ -5,59 +5,51 @@
 //GOLBAL VARAIBALES 
 int GameOver=0;
 int score=0;
+int totalMine=10;
+int totalTile=0;
 
 //CONSTATNS
-  #define ROWS 9
-  #define COLS 9
+#define ROWS 9
+#define COLS 9
 
 //FUNCTIONS 
-  void MakeGrid(char Grid[ROWS][COLS], char BombGrid[ROWS][COLS]); 
-  void startGame();  
-  void updateGrid(char Grid[ROWS][COLS], char BombGrid[ROWS][COLS], int x, int y);
-  void DisplayOnce(char Grid[ROWS][COLS]);
-  void SaveGame(char Grid[ROWS][COLS], char BombGrid[ROWS][COLS], int Score);
-  //void LoadGame(char Grid[ROWS][COLS], char BombGrid[ROWS][COLS], int Score);
-  void Rules();
+void MakeGrid(char Grid[ROWS][COLS], char BombGrid[ROWS][COLS]); 
+void startGame();  
+void updateGrid(char Grid[ROWS][COLS], char BombGrid[ROWS][COLS], int x, int y);
+void DisplayOnce(char Grid[ROWS][COLS]);
+void Rules();
 
 
 int main()
-{;
+{
   printf("Welcome to MineSweeper, By Aaron Cronnelly\n");
-  Rules();
-  
+  Rules(); 
   startGame();
 }//END OF MAIN 
 
 void Rules()
 {
-  printf("Here are the rules of the game, You will be asked to load a previose game, if you have, \n");
-  printf("previose game then you can just say 'N' to that question and you will be able to start a, \n");
-  printf("game. You will then be show a board and asked to input the laociton you would like to cheack,\n");
-  printf("then that laocation will be reveled, and you will have eiter hit a mine of be show a number, \n");
-  printf("this number represents the amount of mines that are around that laociton.\n");
-  printf("keep going unitl you have either hit a mine or have cleard all the mines\n");
+  printf("Here are the rules of the game, You will be asked to load a previose game, if you have, \n\n");
+  printf("previose game then you can just say 'N' to that question and you will be able to start a, \n\n");
+  printf("game. You will then be show a board and asked to input the laociton you would like to cheack,\n\n");
+  printf("then that laocation will be reveled, and you will have eiter hit a mine of be show a number, \n\n");
+  printf("this number represents the amount of mines that are around that laociton.\n\n");
+  printf("keep going unitl you have either hit a mine or have cleard all the mines\n\n");
 }
 
 void startGame()
-{//need to make it so make grid is only called once
-  //then it is passed to an update grid funciton 
-  //the update gride funtion is run each time the user entes a value to claer 
-
-    //VARAIBALES
+{   
+  //VARAIBALES
   char startGame;
-  char loadgame;
   char Grid[ROWS][COLS];
   char BombGrid[ROWS][COLS];
+
+  //callling the grid funciton to make the grid 
+  MakeGrid(Grid, BombGrid);
   
-  printf("Do you want to load the last game? 'y'/'n'\n");
-    scanf("%c", &loadgame);
-
-    //callling the grid funciton to make the grid 
-    if(loadgame=='n'){MakeGrid(Grid, BombGrid);}
-
   printf("Would you like to start the game 'Y'/'N'\n");
     scanf("%c", &startGame);
-    printf("Score %d\n", score);
+  printf("Score %d\n", score);
     DisplayOnce(Grid);
 
   while(startGame=='y'||startGame=='Y')
@@ -65,7 +57,7 @@ void startGame()
       int x, y;
     printf("Please enter the tile you would like to check: x y\n");
       scanf("%d %d", &x, &y);
-
+        printf("\n");
       updateGrid(Grid, BombGrid, x, y);
       printf("Score %d\n", score);
       printf("DEBUG-- %d\n", GameOver);
@@ -74,20 +66,11 @@ void startGame()
         printf("You have lost the game you score will now be displayed, \nscore: %d", score);
         return;
       }
-
-      printf("would you like to continut playing 'y'/'n' or Save 's'\n");
-        scanf(" %c", &startGame);
-      if(startGame=='s')
-      {
-        SaveGame(Grid[ROWS][COLS], BombGrid[ROWS][COLS], score);
-      }
+      printf("would you like to continut playing 'y'/'n'\n");
+        scanf(" %c", &startGame);    
      }//END OF WHILE FOR GAME
-
-  printf("DEBUG-- this is where the user score, and opthins to save will be.. \nScore: %d", score);
-
+  printf("The game is over, Your Score is: %d\n", score);
 }//END OF LOAD GAME
-
-
 
 void MakeGrid(char Grid[ROWS][COLS], char BombGrid[ROWS][COLS])
 { 
@@ -96,9 +79,9 @@ void MakeGrid(char Grid[ROWS][COLS], char BombGrid[ROWS][COLS])
       for(int j=0; j<COLS; j++)
         {int T=j+1;
           int F=i+1;
-          //this is filling the main gird
+          //MAIN GRID
           Grid[i][j]='?';
-          //this is filling the top row of grid
+          //TOP ROW
           Grid[0][0]='0';
           Grid[0][1]='1';
           Grid[0][2]='2';
@@ -108,7 +91,7 @@ void MakeGrid(char Grid[ROWS][COLS], char BombGrid[ROWS][COLS])
           Grid[0][6]='6';
           Grid[0][7]='7';
           Grid[0][8]='8';
-          //this is filling the first cols of grid 
+          //FIRST COLUME
           Grid[1][0]='1';
           Grid[2][0]='2';
           Grid[3][0]='3';
@@ -122,7 +105,7 @@ void MakeGrid(char Grid[ROWS][COLS], char BombGrid[ROWS][COLS])
 
   //SETTING UP BOMBS
   srand(time(NULL));
-  for(int p=0; p<40; p++)
+  for(int p=0; p<10; p++)
     {
       while(1)
       {
@@ -150,7 +133,7 @@ void updateGrid(char Grid[ROWS][COLS], char BombGrid[ROWS][COLS], int x, int y)
   }
 
 else
-  {
+  {totalTile++;
     score=score+1;
     for(int i=x-1; i<x+1; i++)
       {
@@ -211,6 +194,11 @@ else
           }
         printf("\n");
       } 
+  }//END OF ELSE  
+
+  if(totalTile==totalMine)
+  {
+    printf("Congratuations you have cleard the board and have one the game, Score: %d\n", score);
   }
 }//END OF updateGrid
 
@@ -226,42 +214,6 @@ void DisplayOnce(char Grid[ROWS][COLS])
     }//DISPLAYIG GIRD
   
 }//END OF DisplayOnce
-
-
-void SaveGame(char Grid[ROWS][COLS], char BombGrid[ROWS][COLS], int score)
-{
-  FILE *fp=fopen("MineSweeper.txt", "w");
-
-  if(fp==NULL)
-  {
-    printf("Error opening file!\n");
-    return;
-  }
-
-  fprintf(fp, "Score: %d \n", score);
-
-  fprintf(fp, "bomb Locations: \n");
-    for(int i=0; i<ROWS; i++)
-    {
-      for(int j=0; j<COLS; j++)
-        {
-          fprintf(fp, " %c ", BombGrid[i][j]);
-        }
-      fprintf(fp, "\n");
-    }
-
-  fprintf(fp,"Grid \n");
-    for(int i=0; i<ROWS; i++)
-    {
-      for(int j=0; j<COLS; j++)
-        {
-          fprintf(fp, " %c ", Grid[i][j]);
-        }
-      fprintf(fp, "\n");
-    }
-
-    fclose(fp);
-}//END OF SAVE GAME
 
 
 
