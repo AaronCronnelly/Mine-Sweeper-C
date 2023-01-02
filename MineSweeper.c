@@ -12,29 +12,48 @@ int score=0;
 
 //FUNCTIONS 
   void MakeGrid(char Grid[ROWS][COLS], char BombGrid[ROWS][COLS]); 
-  void LoadGame();  
+  void startGame();  
   void updateGrid(char Grid[ROWS][COLS], char BombGrid[ROWS][COLS], int x, int y);
   void DisplayOnce(char Grid[ROWS][COLS]);
-  void SaveGame(Char Grid[ROWS][COLS], char BombGrid[ROWS][COLS], int Score);
+  void SaveGame(char Grid[ROWS][COLS], char BombGrid[ROWS][COLS], int Score);
+  //void LoadGame(char Grid[ROWS][COLS], char BombGrid[ROWS][COLS], int Score);
+  void Rules();
+
 
 int main()
-{
-  LoadGame();
+{;
+  printf("Welcome to MineSweeper, By Aaron Cronnelly\n");
+  Rules();
+  
+  startGame();
 }//END OF MAIN 
 
-void LoadGame()
+void Rules()
+{
+  printf("Here are the rules of the game, You will be asked to load a previose game, if you have, \n");
+  printf("previose game then you can just say 'N' to that question and you will be able to start a, \n");
+  printf("game. You will then be show a board and asked to input the laociton you would like to cheack,\n");
+  printf("then that laocation will be reveled, and you will have eiter hit a mine of be show a number, \n");
+  printf("this number represents the amount of mines that are around that laociton.\n");
+  printf("keep going unitl you have either hit a mine or have cleard all the mines\n");
+}
+
+void startGame()
 {//need to make it so make grid is only called once
   //then it is passed to an update grid funciton 
   //the update gride funtion is run each time the user entes a value to claer 
 
     //VARAIBALES
   char startGame;
+  char loadgame;
   char Grid[ROWS][COLS];
   char BombGrid[ROWS][COLS];
   
+  printf("Do you want to load the last game? 'y'/'n'\n");
+    scanf("%c", &loadgame);
+
     //callling the grid funciton to make the grid 
-    MakeGrid(Grid, BombGrid);
- 
+    if(loadgame=='n'){MakeGrid(Grid, BombGrid);}
 
   printf("Would you like to start the game 'Y'/'N'\n");
     scanf("%c", &startGame);
@@ -56,8 +75,12 @@ void LoadGame()
         return;
       }
 
-      printf("would you like to continut playing 'y'/'n'\n");
+      printf("would you like to continut playing 'y'/'n' or Save 's'\n");
         scanf(" %c", &startGame);
+      if(startGame=='s')
+      {
+        SaveGame(Grid[ROWS][COLS], BombGrid[ROWS][COLS], score);
+      }
      }//END OF WHILE FOR GAME
 
   printf("DEBUG-- this is where the user score, and opthins to save will be.. \nScore: %d", score);
@@ -207,8 +230,38 @@ void DisplayOnce(char Grid[ROWS][COLS])
 
 void SaveGame(char Grid[ROWS][COLS], char BombGrid[ROWS][COLS], int score)
 {
-  
-}
+  FILE *fp=fopen("MineSweeper.txt", "w");
+
+  if(fp==NULL)
+  {
+    printf("Error opening file!\n");
+    return;
+  }
+
+  fprintf(fp, "Score: %d \n", score);
+
+  fprintf(fp, "bomb Locations: \n");
+    for(int i=0; i<ROWS; i++)
+    {
+      for(int j=0; j<COLS; j++)
+        {
+          fprintf(fp, " %c ", BombGrid[i][j]);
+        }
+      fprintf(fp, "\n");
+    }
+
+  fprintf(fp,"Grid \n");
+    for(int i=0; i<ROWS; i++)
+    {
+      for(int j=0; j<COLS; j++)
+        {
+          fprintf(fp, " %c ", Grid[i][j]);
+        }
+      fprintf(fp, "\n");
+    }
+
+    fclose(fp);
+}//END OF SAVE GAME
 
 
 
