@@ -5,12 +5,16 @@
 //GOLBAL VARAIBALES 
 int GameOver=0;
 int score=0;
+int score2=0;
+int currentPlayer=1;
+int players=0;
 int totalMine=10;
 int totalTile=0;
 
 //CONSTATNS
 #define ROWS 9
 #define COLS 9
+
 
 //FUNCTIONS 
 void MakeGrid(char Grid[ROWS][COLS], char BombGrid[ROWS][COLS]); 
@@ -46,31 +50,58 @@ void startGame()
 
   //callling the grid funciton to make the grid 
   MakeGrid(Grid, BombGrid);
-  
+  printf("Players, Note Max is 2:\n");
+    scanf(" %d", &players);
+    printf("\n");
   printf("Would you like to start the game 'Y'/'N'\n");
-    scanf("%c", &startGame);
+    scanf(" %c", &startGame);
   printf("Score %d\n", score);
     DisplayOnce(Grid);
 
   while(startGame=='y'||startGame=='Y')
     {
       int x, y;
-    printf("Please enter the tile you would like to check: x y\n");
+
+      
+    printf("Player %d please enter the tile you would like to check: x y\n", currentPlayer);
       scanf("%d %d", &x, &y);
         printf("\n");
       updateGrid(Grid, BombGrid, x, y);
+      if(players==1)
+      {
       printf("Score %d\n", score);
-      printf("DEBUG-- %d\n", GameOver);
+      }
+      else {
+        printf("P1: Score is: %d, P2: Score is: %d\n", score, score2);
+      }
       if(GameOver==1)
       {
+        if(players==1)
+        {
         printf("You have lost the game you score will now be displayed, \nscore: %d", score);
         return;
+        }
+        else 
+        {
+          printf("Player %d, you have lost the game scores are shown P1: %d, P2: %d\n", currentPlayer, score, score2); 
+          return;
+        }
       }
+
+
       printf("would you like to continut playing 'y'/'n'\n");
         scanf(" %c", &startGame);    
      }//END OF WHILE FOR GAME
-  printf("The game is over, Your Score is: %d\n", score);
-}//END OF LOAD GAME
+  
+  if(players==1)
+  {
+     printf("The game is over, Your Score is: %d\n", score);
+  }
+else {
+   printf("The game is over. P1 Score: %d, P2 Score: %d\n", score, score2);
+}
+
+ }//END OF LOAD GAME
 
 void MakeGrid(char Grid[ROWS][COLS], char BombGrid[ROWS][COLS])
 { 
@@ -105,7 +136,7 @@ void MakeGrid(char Grid[ROWS][COLS], char BombGrid[ROWS][COLS])
 
   //SETTING UP BOMBS
   srand(time(NULL));
-  for(int p=0; p<10; p++)
+  for(int p=0; p<totalMine; p++)
     {
       while(1)
       {
@@ -128,13 +159,35 @@ void updateGrid(char Grid[ROWS][COLS], char BombGrid[ROWS][COLS], int x, int y)
 
   if(BombGrid[x][y]=='x')
   {
+    if(players==1)
+    {
     GameOver++;
     Grid[x][y]='x';
+    }
+    else 
+    {
+      GameOver++;
+      if (currentPlayer==1) 
+      {
+        score=score-1; 
+      }
+      else 
+      {
+        score2=score2-1;
+      }
+    }
   }
 
 else
   {totalTile++;
+    if(currentPlayer==1)
+    {
     score=score+1;
+    }
+    if(currentPlayer==2)
+    {
+      score2=score2+1;
+    }
     for(int i=x-1; i<x+1; i++)
       {
         for(int j=y-1; j<y+1; j++)
@@ -184,7 +237,19 @@ else
 
           break;
     }//END OF SWITHC 
-    
+
+  if(players==2)
+    {
+      if(currentPlayer==1)
+      {
+        currentPlayer=2;
+      }
+      else 
+      {
+        currentPlayer=1;
+      }
+    }
+
     for(int i=1; i<ROWS; i++)
       {
         for(int j=0; j<COLS; j++)
